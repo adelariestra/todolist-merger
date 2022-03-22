@@ -9,6 +9,7 @@
     "dev2": "node src/index.ts",
     "build": "tsc -p .",
     "test": "tsc -p . & node dist/index.js",
+    "test-help": "tsc -p . & node dist/index.js --help",
     "test-opt": "tsc -p . & node dist/index.js opt1 opt2"
   },
   "author": "",

@@ -1,5 +1,5 @@
 import './readFiles';
-import yargs from 'yargs';
+import yargs, { ArgumentsCamelCase } from 'yargs';
 
 
 // Default Options
@@ -21,24 +21,48 @@ Parameters:
 - outputPath: path where to generate the output file.
 */
 
-// MAIN
-let args = process.argv.slice(2);
-parseOptions(args);
-printOptions(args);
+let argv = yargs
+    .scriptName("todolist-merger")
+    .usage('Usage: $0 -m [f, t, tp] -i [i, ni] -r rootDir -o outputDir')
+    .example(
+        "$0 -r \"./src\" -o \"./output\"",
+        "Sets the root directory to ./src and the output directory to ./output."
+    )
+    .option("m", {
+        alias: "mergeType",
+        describe: "Which elements of the files will be merged.",
+        type: "string",
+        choices:["f","t","tp"],
+        default:"f",
+        nargs: 1
+    })
+    .option("i", {
+        alias: "readType",
+        describe: "How the folders will be read.",
+        choices:["i","ni"],
+        default:"i",
+        type: "string",
+        nargs: 1
+    })
+    .option("r", {
+        alias: "rootDir",
+        describe: "Folder Path from where to start reading.",
+        default:".",
+        type: "string",
+        nargs: 1
+    })
+    .option("o", {
+        alias: "outPath",
+        describe: "Name of the file that will be generated.",
+        default:"./output.txt",
+        type: "string",
+        nargs: 1
+    })
+    .describe("help", "Show help.")
+    .argv
 
+main(argv);
 
-// AUX FUNCTIONS
-function parseOptions(params:String[]) {
-    rootDir= params[0]?.toString();
-    outDir= params[1]?.toString();
-}
-
-function printOptions(params:String[]) {
-    args.forEach(function (val, index, array) {
-        console.log(index + ': ' + val);
-    });
-
-    console.log("--- Options ---");
-    console.log(`Root Directory: ${rootDir}`);
-    console.log(`Output Directory: ${outDir}`);
+function main(inputArgs: any) {
+    console.log(inputArgs);
 }
