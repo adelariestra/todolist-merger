@@ -1,25 +1,5 @@
-import './readFiles';
-import yargs, { ArgumentsCamelCase } from 'yargs';
-
-
-// Default Options
-let rootDir = './test/fixture/rootDir';
-let outDir = './test/fixture/output';
-
-/*
-Options:
-- MergeType:
-    - f (default): full file
-    - t: todolists only
-    - tp: todolists pending items only
-- ReadType:
-    - i (default): iterate recursivly through subfolders
-    - ni: only root folder.
-
-Parameters:
-- rootDir: origin where to start iterating
-- outputPath: path where to generate the output file.
-*/
+import readDirectory from './readFiles';
+import yargs from 'yargs';
 
 let argv = yargs
     .scriptName("todolist-merger")
@@ -64,5 +44,8 @@ let argv = yargs
 main(argv);
 
 function main(inputArgs: any) {
-    console.log(inputArgs);
+    // console.log(inputArgs);
+
+    let files = readDirectory(inputArgs.rootDir);
+    console.log(files);
 }

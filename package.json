@@ -8,9 +8,9 @@
     "dev": "tsc -p . & node dist/index.js",
     "dev2": "node src/index.ts",
     "build": "tsc -p .",
-    "test": "tsc -p . & node dist/index.js",
-    "test-help": "tsc -p . & node dist/index.js --help",
-    "test-opt": "tsc -p . & node dist/index.js opt1 opt2"
+    "test": "tsc -p . & node dist/index.js -r \"./test/fixture/rootDir\" -o \"./test/fixture/outDir/output.txt\" ",
+    "test-default": "tsc -p . & node dist/index.js",
+    "test-help": "tsc -p . & node dist/index.js --help"
   },
   "author": "",
   "license": "ISC",
