@@ -1,7 +1,11 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import './readFiles';
+import yargs from 'yargs';
 
-const rootDir = './test/fixture/02_Stdy';
+
+// Default Options
+let rootDir = './test/fixture/rootDir';
+let outDir = './test/fixture/output';
+
 /*
 Options:
 - MergeType:
@@ -17,14 +21,24 @@ Parameters:
 - outputPath: path where to generate the output file.
 */
 
-// print process.argv
-var args = process.argv.slice(2);
-args.forEach(function (val, index, array) {
-    console.log(index + ': ' + val);
-});
+// MAIN
+let args = process.argv.slice(2);
+parseOptions(args);
+printOptions(args);
 
-fs.readdir(rootDir, (error,files)=>{
-    files.forEach(file=>{
-        console.log(file);
-    })
-})
+
+// AUX FUNCTIONS
+function parseOptions(params:String[]) {
+    rootDir= params[0]?.toString();
+    outDir= params[1]?.toString();
+}
+
+function printOptions(params:String[]) {
+    args.forEach(function (val, index, array) {
+        console.log(index + ': ' + val);
+    });
+
+    console.log("--- Options ---");
+    console.log(`Root Directory: ${rootDir}`);
+    console.log(`Output Directory: ${outDir}`);
+}
