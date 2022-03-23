@@ -1,4 +1,4 @@
-import readDirectory from './readFiles';
+import {buildTODOLists, buildFilesList} from './buildLists';
 import yargs from 'yargs';
 
 let argv = yargs
@@ -46,7 +46,8 @@ main(argv);
 function main(inputArgs: any) {
     // console.log(inputArgs);
 
-    let files = readDirectory(inputArgs.rootDir);
-    console.log(files);
-    console.log(`File Count: ${files.length}`);
+    let toDoLists = buildTODOLists(inputArgs.rootDir);
+    console.log(toDoLists);
+    // console.log(files);
+    // console.log(`File Count: ${files.length}`);
 }

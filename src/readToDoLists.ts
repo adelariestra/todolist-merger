@@ -1,6 +1,6 @@
 import * as FS from 'fs';
 import * as Path from 'path';
-import { itereateFiles } from './readFiles'
+import { itereateFiles } from './iterateFiles'
 
 let rgxTODOList = new RegExp(`##(\\n|\\r| )+?TODO(\\n|\\r| )+?---(\\n|\\r| |.)+?---`)
 let rgxTODOItem = new RegExp(`(\\t| )*- \\[( |X|-|O)\\]( )*.*(\\r| )*(\\n)`, "g");

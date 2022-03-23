@@ -1,11 +1,7 @@
 import { expect } from 'chai';
-import { execFile, execFileSync, execSync } from 'child_process';
-import * as FS from 'fs';
-import * as Path from 'path';
-import generateTODOLists from '../../src/generateLists';
-import readDirectory from '../../src/readFiles';
-import  {readToDoLists, readToDoItems } from '../../src/readToDoLists';
-import setup from '../fixture/testSuiteSetup'
+import {buildTODOLists, buildFilesList} from '../../src/buildLists';
+import { readToDoItems, readToDoLists } from '../../src/readToDoLists';
+import setup from '../fixture/testSuiteSetup';
 
 describe('File Reading', () => {
     let rootDir = './test/fixture/rootDir';
@@ -15,21 +11,19 @@ describe('File Reading', () => {
 
     describe('General', () => {
         it('Can access the environments files', () => {
-            let result = readDirectory(rootDir);
-            expect(result.length).to.equal(3);
+            let result = buildFilesList(rootDir);
+            expect(result.length).to.equal(7);
         });
     });
 
     describe('TO DO LIST Reading', () => {
         it('Can get to do lists', () => {
             let result = readToDoLists(rootDir);
-            console.log(result);
             expect(result.length).to.equal(2);
         });
         
         it('Can get to do list items', () => {
             let result = readToDoItems(rootDir);
-            console.log(result);
             expect(result.length).to.equal(4);
         });
 
@@ -45,9 +39,8 @@ describe('File Reading', () => {
 
     describe('Lists Generation', () => {
         it('Generates TO DO Lists', () => {
-            let result = generateTODOLists(rootDir);
-
-            console.log(result);
+            let result = buildTODOLists(rootDir);
+            expect(result.length).to.above(0);
         });
     });
 

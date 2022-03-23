@@ -1,10 +1,10 @@
 import * as FS from 'fs';
 import * as Path from 'path';
 
-import { itereateFiles } from './readFiles'
+import { itereateFiles } from './iterateFiles'
 import { } from './readToDoLists'
 
-export default function generateTODOLists(rootDir: FS.PathLike) {
+export function buildTODOLists(rootDir: FS.PathLike) {
     let directoriesStack: String[] = ["General"];
     let result: String = `# TODOs - ${rootDir}\n---`;
 
@@ -28,5 +28,19 @@ export default function generateTODOLists(rootDir: FS.PathLike) {
     );
     result = result.concat("\n---")
     return result;
+}
 
+export function buildFilesList(rootDir: FS.PathLike): String[] {
+    let allFiles: String[] = [];
+    let ignoredFiles: String[] = [".git"] //TODO: envirnonment/configuration?
+
+    itereateFiles(
+        rootDir,
+        (path: String) => allFiles.push(path),
+        () => { },
+        () => { },
+        (path: String) => ignoredFiles.find(toIgnore => toIgnore == path)
+    );
+
+    return allFiles;
 }
