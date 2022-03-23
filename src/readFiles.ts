@@ -15,7 +15,7 @@ export default function readDirectory(rootDir: any): String[] {
     return allFiles;
 }
 
-function itereateFiles(rootDir: FS.PathLike, fileAction: Function, shouldSkipFile: Function) {
+export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, shouldSkipFile: Function=()=>{return false}) {
     FS
         .readdirSync(rootDir)
         .forEach(file => {
