@@ -2,21 +2,22 @@ import * as FS from 'fs';
 import * as Path from 'path';
 
 
-export default function readDirectory(rootDir: any): String[] {
+export default function readDirectory(rootDir: FS.PathLike): String[] {
     let allFiles: String[] = [];
     let ignoredFiles: String[] = [".git"] //TODO: envirnonment/configuration?
 
     itereateFiles(
         rootDir,
         (path: String) => allFiles.push(path),
-        () => {},
+        () => { },
+        () => { },
         (path: String) => ignoredFiles.find(toIgnore => toIgnore == path)
     );
 
     return allFiles;
 }
 
-export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, directoryAction: Function, shouldSkipFile: Function=()=>{return false}) {
+export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, directoryAction: Function, levelUpAction: Function, shouldSkipFile: Function = () => { return false }) {
     FS
         .readdirSync(rootDir)
         .forEach(file => {
@@ -28,10 +29,11 @@ export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, direct
             if (FS.statSync(path).isDirectory()) {
                 // DIRECTORY ACTIONS
                 directoryAction(path);
-                return itereateFiles(path, fileAction, directoryAction, shouldSkipFile);
+                return itereateFiles(path, fileAction, directoryAction, levelUpAction, shouldSkipFile);
             } else {
                 // FILE ACTIONS
                 return fileAction(path);
             }
         });
+    levelUpAction(rootDir);
 }

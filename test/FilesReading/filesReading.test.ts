@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { execFile, execFileSync, execSync } from 'child_process';
 import * as FS from 'fs';
 import * as Path from 'path';
+import generateTODOLists from '../../src/generateLists';
 import readDirectory from '../../src/readFiles';
 import  {readToDoLists, readToDoItems } from '../../src/readToDoLists';
 import setup from '../fixture/testSuiteSetup'
@@ -40,6 +41,14 @@ describe('File Reading', () => {
 
         });
 
+    });
+
+    describe('Lists Generation', () => {
+        it('Generates TO DO Lists', () => {
+            let result = generateTODOLists(rootDir);
+
+            console.log(result);
+        });
     });
 
 

@@ -11,6 +11,7 @@ export function readToDoLists(rootDir: any): String[] {
     itereateFiles(
         rootDir,
         (path: FS.PathOrFileDescriptor) => { items.push(getFileTODOList(path)) },
+        () => { },
         () => { }
     )
     return items.filter(item => item != "");
@@ -23,6 +24,7 @@ export function readToDoItems(rootDir: any): String[] {
         (path: FS.PathOrFileDescriptor) => {
             items = items.concat(getFileTODOItems(path));
         },
+        () => { },
         () => { }
     )
     return items.filter(item => item != "");

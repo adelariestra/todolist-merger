@@ -41,7 +41,21 @@ date: 20220323
 
 ---`
     );
-    FS.writeFileSync(`${rootDir}/EmptyFiles.txt`,
-        ``
+    FS.writeFileSync(`${rootDir}/EmptyFile.txt`,``);
+    
+    FS.mkdirSync(`${rootDir}/Subfolder1`);
+    FS.writeFileSync(`${rootDir}/Subfolder1/EmptyFile.txt`,
+    ``
     );
+    FS.writeFileSync(`${rootDir}/Subfolder1/EmptyFile2.txt`,
+    ``
+    );
+
+    FS.mkdirSync(`${rootDir}/Subfolder2`);
+    FS.writeFileSync(`${rootDir}/Subfolder2/EmptyFile1.txt`,``);
+
+    FS.mkdirSync(`${rootDir}/Subfolder2/Subfolder21`);
+    FS.writeFileSync(`${rootDir}/Subfolder2/Subfolder21/EmptyFile1.txt`,``);
+
+    FS.mkdirSync(`${rootDir}/Subfolder2/Subfolder22`);
 }
