@@ -3,7 +3,7 @@ import { execFile, execFileSync, execSync } from 'child_process';
 import * as FS from 'fs';
 import * as Path from 'path';
 import readDirectory from '../../src/readFiles';
-import readToDoLists from '../../src/readToDoLists';
+import  {readToDoLists, readToDoItems } from '../../src/readToDoLists';
 import setup from '../fixture/testSuiteSetup'
 
 describe('File Reading', () => {
@@ -15,19 +15,21 @@ describe('File Reading', () => {
     describe('General', () => {
         it('Can access the environments files', () => {
             let result = readDirectory(rootDir);
-            expect(result.length).to.equal(2);
+            expect(result.length).to.equal(3);
         });
     });
 
     describe('TO DO LIST Reading', () => {
-        it('Can get to do list items', () => {
+        it('Can get to do lists', () => {
             let result = readToDoLists(rootDir);
             console.log(result);
-            expect(result.length).to.equal(4);
+            expect(result.length).to.equal(2);
         });
-
-        it.skip('Can get to do list items with empty files', () => {
-
+        
+        it('Can get to do list items', () => {
+            let result = readToDoItems(rootDir);
+            console.log(result);
+            expect(result.length).to.equal(4);
         });
 
         it.skip('Can get to do list only-completed items', () => {
