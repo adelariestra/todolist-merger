@@ -4,6 +4,7 @@ import { itereateFiles } from './readFiles'
 
 let rgxTODOList = new RegExp(`##(\\n|\\r| )+?TODO(\\n|\\r| )+?---(\\n|\\r| |.)+?---`)
 let rgxTODOItem = new RegExp(`(\\t| )*- \\[( |X|-|O)\\]( )*.*(\\r| )*(\\n)`, "g");
+let rgxTODOItemOnlyPending = new RegExp(`(\\t| )*- \\[( )\\]( )*.*(\\r| )*(\\n)`, "g");
 
 export function readToDoLists(rootDir: any): String[] {
     let items: String[] = [];
