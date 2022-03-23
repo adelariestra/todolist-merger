@@ -10,7 +10,8 @@ export function readToDoLists(rootDir: any): String[] {
     let items: String[] = [];
     itereateFiles(
         rootDir,
-        (path: FS.PathOrFileDescriptor) => { items.push(getFileTODOList(path)) }
+        (path: FS.PathOrFileDescriptor) => { items.push(getFileTODOList(path)) },
+        () => { }
     )
     return items.filter(item => item != "");
 }
@@ -21,7 +22,8 @@ export function readToDoItems(rootDir: any): String[] {
         rootDir,
         (path: FS.PathOrFileDescriptor) => {
             items = items.concat(getFileTODOItems(path));
-        }
+        },
+        () => { }
     )
     return items.filter(item => item != "");
 }
@@ -40,7 +42,7 @@ function getFileTODOItems(path: FS.PathOrFileDescriptor): String[] {
     let todolist = getFileTODOList(path);
     let todoitems = todolist.match(rgxTODOItem) || [];
     todoitems = todoitems.map(item => item?.toString())
-    
+
     console.debug(todoitems);
 
     return todoitems;

@@ -9,13 +9,14 @@ export default function readDirectory(rootDir: any): String[] {
     itereateFiles(
         rootDir,
         (path: String) => allFiles.push(path),
+        () => {},
         (path: String) => ignoredFiles.find(toIgnore => toIgnore == path)
     );
 
     return allFiles;
 }
 
-export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, shouldSkipFile: Function=()=>{return false}) {
+export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, directoryAction: Function, shouldSkipFile: Function=()=>{return false}) {
     FS
         .readdirSync(rootDir)
         .forEach(file => {
@@ -26,7 +27,8 @@ export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, should
 
             if (FS.statSync(path).isDirectory()) {
                 // DIRECTORY ACTIONS
-                return itereateFiles(path, fileAction, shouldSkipFile);
+                directoryAction(path);
+                return itereateFiles(path, fileAction, directoryAction, shouldSkipFile);
             } else {
                 // FILE ACTIONS
                 return fileAction(path);

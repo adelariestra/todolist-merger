@@ -2,7 +2,6 @@ import { itereateFiles } from './readFiles'
 import {} from './readToDoLists'
 
 export default function generateTODOLists(){
-
     // itereateFiles()
 
 
