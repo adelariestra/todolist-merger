@@ -16,11 +16,11 @@ export default function generateTODOLists(rootDir: FS.PathLike) {
 
             // Add items
             let items: String = "ITEMS"; //TODO: get items
-            result = result.concat(`${items}`)
+            result = result.concat(`${items}\n`)
         },
         (directoryPath: FS.PathLike) => {
             directoriesStack.push(directoryPath.toString());
-            result = result.concat(`\n${"#".repeat(directoriesStack.length)} ${Path.basename(directoryPath.toString())}\n`);
+            result = result.concat(`\n${"#".repeat(directoriesStack.length)} ${Path.basename(directoryPath.toString())}`);
         },
         () => {
             directoriesStack.pop();
