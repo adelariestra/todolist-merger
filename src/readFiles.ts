@@ -5,7 +5,7 @@ let allFiles: String[] = []; //TODO: instead of global variable, send as paramet
 let ignoredFiles: String[] = [".git"] //TODO: envirnonment/configuration?
 
 export default function readDirectory(rootDir: any): String[] {
-    itereateFiles(rootDir, (path:String)=>allFiles.push(path));
+    itereateFiles(rootDir, (path: String) => allFiles.push(path));
     return allFiles;
 }
 
@@ -17,7 +17,7 @@ function itereateFiles(rootDir: FS.PathLike, action: Function) {
                 return;
             const path = Path.join(rootDir.toString(), file);
             if (FS.statSync(path).isDirectory())
-                return itereateFiles(path,action);
+                return itereateFiles(path, action);
             else
                 return action(path);
         });
