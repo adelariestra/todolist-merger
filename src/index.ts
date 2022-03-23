@@ -48,4 +48,5 @@ function main(inputArgs: any) {
 
     let files = readDirectory(inputArgs.rootDir);
     console.log(files);
+    console.log(`File Count: ${files.length}`);
 }
