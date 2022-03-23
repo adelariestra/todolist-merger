@@ -109,4 +109,4 @@ tokens.json
 test/services/fixture/calendarsList.json
 
 # Resources
-test/fixture
+test/fixture/rootDir
