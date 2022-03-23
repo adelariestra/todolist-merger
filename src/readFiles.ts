@@ -1,24 +1,35 @@
 import * as FS from 'fs';
 import * as Path from 'path';
 
-let allFiles: String[] = []; //TODO: instead of global variable, send as parameter in recusive function
-let ignoredFiles: String[] = [".git"] //TODO: envirnonment/configuration?
 
 export default function readDirectory(rootDir: any): String[] {
-    itereateFiles(rootDir, (path: String) => allFiles.push(path));
+    let allFiles: String[] = [];
+    let ignoredFiles: String[] = [".git"] //TODO: envirnonment/configuration?
+
+    itereateFiles(
+        rootDir,
+        (path: String) => allFiles.push(path),
+        (path: String) => ignoredFiles.find(toIgnore => toIgnore == path)
+    );
+
     return allFiles;
 }
 
-function itereateFiles(rootDir: FS.PathLike, action: Function) {
+function itereateFiles(rootDir: FS.PathLike, fileAction: Function, shouldSkipFile: Function) {
     FS
         .readdirSync(rootDir)
         .forEach(file => {
-            if (ignoredFiles.find(toIgnore => toIgnore == file)) //TODO: improve
+            // FILES AND DIRECTORY SKIPPING
+            if (shouldSkipFile(file))
                 return;
             const path = Path.join(rootDir.toString(), file);
-            if (FS.statSync(path).isDirectory())
-                return itereateFiles(path, action);
-            else
-                return action(path);
+
+            if (FS.statSync(path).isDirectory()) {
+                // DIRECTORY ACTIONS
+                return itereateFiles(path, fileAction, shouldSkipFile);
+            } else {
+                // FILE ACTIONS
+                return fileAction(path);
+            }
         });
 }
