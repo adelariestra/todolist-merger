@@ -4,9 +4,12 @@ import * as Path from 'path';
 import { itereateFiles } from './iterateFiles'
 import { getFileTODOItems, getFileTODOItemsArray, getFileTODOList } from './readToDoLists'
 
-export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending:Boolean=false) {
+export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending: Boolean = false) {
     let directoriesStack: String[] = ["General"];
-    let result: String = `# TODOs - ${rootDir}\n---`;
+    let result: String = `# TODOs - ${Path.basename(rootDir.toString())}\n---`;
+    let shouldSkipFile: Function = (path: string) => {
+        return ![".txt",".md",""].includes(Path.extname(path))
+    }
 
     itereateFiles(
         rootDir,
@@ -15,7 +18,7 @@ export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending:Boolean=f
             result = result.concat(`\n${"#".repeat(directoriesStack.length + 1)} ${Path.basename(filePath.toString())}\n`);
 
             // Add items
-            let items: String = getFileTODOItems(filePath,onlyPending);
+            let items: String = getFileTODOItems(filePath, onlyPending);
             result = result.concat(`${items}\n`)
         },
         (directoryPath: FS.PathLike) => {
@@ -24,7 +27,8 @@ export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending:Boolean=f
         },
         () => {
             directoriesStack.pop();
-        }
+        },
+        shouldSkipFile
     );
     result = result.concat("\n---")
     return result;

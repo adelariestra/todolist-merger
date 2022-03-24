@@ -1,9 +1,10 @@
 import { expect } from 'chai';
-import {buildTODOListsOutput, buildFilesArray,buildTODOListsArray, buildTODOItemsArray} from '../../src/buildLists';
+import { buildTODOListsOutput, buildFilesArray, buildTODOListsArray, buildTODOItemsArray } from '../../src/buildLists';
 import setup from '../fixture/testSuiteSetup';
 
 describe('File Reading', () => {
     let rootDir = './test/fixture/rootDir';
+
     before(() => {
         setup();
     });
@@ -20,10 +21,10 @@ describe('File Reading', () => {
             let result = buildTODOListsArray(rootDir);
             expect(result.length).to.equal(2);
         });
-        
+
         it('Can get to do list items', () => {
             let result = buildTODOItemsArray(rootDir);
-            expect(result.length).to.equal(4);
+            expect(result.length).to.equal(7);
         });
 
         it.skip('Can get to do list only-completed items', () => {
@@ -39,6 +40,14 @@ describe('File Reading', () => {
     describe('Lists Generation', () => {
         it('Generates TO DO Lists', () => {
             let result = buildTODOListsOutput(rootDir, false);
+            console.log("~~~~ GENERATED LIST~~~~ ");
+            console.log(result);
+            expect(result.length).to.above(0);
+        });
+        it('Generates TO DO Lists Only Pending', () => {
+            let result = buildTODOListsOutput(rootDir, true);
+            console.log("~~~~ GENERATED LIST OP ~~~~ ");
+            console.log(result);
             expect(result.length).to.above(0);
         });
     });

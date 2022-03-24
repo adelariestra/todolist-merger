@@ -5,6 +5,8 @@ export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, direct
     FS
         .readdirSync(rootDir)
         .forEach(file => {
+            console.debug(`> File: ${file}`);
+            
             // FILES AND DIRECTORY SKIPPING
             if (shouldSkipFile(file))
                 return;

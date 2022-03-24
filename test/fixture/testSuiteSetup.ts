@@ -15,8 +15,9 @@ export default function setup() {
 ---
 ## TODO
 ---
-- [ ] Item1
-- [ ] Item2
+- [ ] Item1 pending
+- [ ] Item2 pending
+    - [ ] Item2b pending
 
 ---`
     );
@@ -36,8 +37,13 @@ date: 20220323
 ---
 ## TODO
 ---
-- [ ] Item3
-- [ ] Item4
+Test text:
+- [X] Item3 Completed
+- [O] Item4 With O
+
+Hello
+- [ ] Item5 pending
+    - [-] Item5 with -
 
 ---`
     );
