@@ -2,20 +2,20 @@ import * as FS from 'fs';
 import * as Path from 'path';
 
 import { itereateFiles } from './iterateFiles'
-import { getFileTODOItems } from './readToDoLists'
+import { getFileTODOItems, getFileTODOItemsList, getFileTODOList } from './readToDoLists'
 
-export function buildTODOLists(rootDir: FS.PathLike) {
+export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending:Boolean=false) {
     let directoriesStack: String[] = ["General"];
     let result: String = `# TODOs - ${rootDir}\n---`;
 
     itereateFiles(
         rootDir,
-        (filePath: String) => {
+        (filePath: FS.PathOrFileDescriptor) => {
             // Add Title
             result = result.concat(`\n${"#".repeat(directoriesStack.length + 1)} ${Path.basename(filePath.toString())}\n`);
 
             // Add items
-            let items: String = "ITEMS"; //TODO: get items
+            let items: String = getFileTODOItems(filePath,onlyPending);
             result = result.concat(`${items}\n`)
         },
         (directoryPath: FS.PathLike) => {
@@ -30,7 +30,7 @@ export function buildTODOLists(rootDir: FS.PathLike) {
     return result;
 }
 
-export function buildFilesList(rootDir: FS.PathLike): String[] {
+export function buildFilesArray(rootDir: FS.PathLike): String[] {
     let allFiles: String[] = [];
     let ignoredFiles: String[] = [".git"] //TODO: envirnonment/configuration?
 
@@ -45,12 +45,25 @@ export function buildFilesList(rootDir: FS.PathLike): String[] {
     return allFiles;
 }
 
-export function buildTODOItemsList(rootDir: any): String[] {
+export function buildTODOItemsArray(rootDir: any): String[] {
     let items: String[] = [];
     itereateFiles(
         rootDir,
         (path: FS.PathOrFileDescriptor) => {
-            items = items.concat(getFileTODOItems(path));
+            items = items.concat(getFileTODOItemsList(path));
+        },
+        () => { },
+        () => { }
+    )
+    return items.filter(item => item != "");
+}
+
+export function buildTODOListsArray(rootDir: any): String[] {
+    let items: String[] = [];
+    itereateFiles(
+        rootDir,
+        (path: FS.PathOrFileDescriptor) => {
+            items = items.concat(getFileTODOList(path));
         },
         () => { },
         () => { }

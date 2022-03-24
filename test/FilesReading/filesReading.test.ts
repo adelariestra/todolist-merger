@@ -1,6 +1,5 @@
 import { expect } from 'chai';
-import {buildTODOLists, buildFilesList, buildTODOItemsList} from '../../src/buildLists';
-import { readToDoLists } from '../../src/readToDoLists';
+import {buildTODOListsOutput, buildFilesArray,buildTODOListsArray, buildTODOItemsArray} from '../../src/buildLists';
 import setup from '../fixture/testSuiteSetup';
 
 describe('File Reading', () => {
@@ -11,19 +10,19 @@ describe('File Reading', () => {
 
     describe('General', () => {
         it('Can access the environments files', () => {
-            let result = buildFilesList(rootDir);
+            let result = buildFilesArray(rootDir);
             expect(result.length).to.equal(7);
         });
     });
 
     describe('TO DO LIST Reading', () => {
         it('Can get to do lists', () => {
-            let result = readToDoLists(rootDir);
+            let result = buildTODOListsArray(rootDir);
             expect(result.length).to.equal(2);
         });
         
         it('Can get to do list items', () => {
-            let result = buildTODOItemsList(rootDir);
+            let result = buildTODOItemsArray(rootDir);
             expect(result.length).to.equal(4);
         });
 
@@ -39,7 +38,7 @@ describe('File Reading', () => {
 
     describe('Lists Generation', () => {
         it('Generates TO DO Lists', () => {
-            let result = buildTODOLists(rootDir);
+            let result = buildTODOListsOutput(rootDir, false);
             expect(result.length).to.above(0);
         });
     });

@@ -1,5 +1,5 @@
-import {buildTODOLists, buildFilesList} from './buildLists';
-import yargs, { choices } from 'yargs';
+import yargs from 'yargs';
+import { buildTODOListsOutput } from './buildLists';
 
 let argv = yargs
     .scriptName("todolist-merger")
@@ -12,29 +12,29 @@ let argv = yargs
         alias: "mergeType",
         describe: "Which elements of the files will be merged. a=all, t=todos, p=todopendings",
         type: "string",
-        choices:["a","t","p"],
-        default:"f",
+        choices: ["a", "t", "p"],
+        default: "f",
         nargs: 1
     })
     .option("i", {
         alias: "readType",
         describe: "How the folders will be read. i=iteration, ni=noiteration",
-        choices:["i","n"],
-        default:"i",
+        choices: ["i", "n"],
+        default: "i",
         type: "string",
         nargs: 1
     })
     .option("r", {
         alias: "rootDir",
         describe: "Folder Path from where to start reading.",
-        default:".",
+        default: ".",
         type: "string",
         nargs: 1
     })
     .option("o", {
         alias: "outPath",
         describe: "Name of the file that will be generated.",
-        default:"./output.txt",
+        default: "./output.txt",
         type: "string",
         nargs: 1
     })
@@ -44,27 +44,27 @@ let argv = yargs
 main(argv);
 
 function main(inputArgs: any) {
+    let result;
     // inputArgs.mergeType ["a","t","p"]
     // inputArgs.readType ["i","n"]
     // inputArgs.rootDir
     // inputArgs.outPath
     switch (inputArgs.mergeType) {
         case 'a': //All files content
-            
+
             break;
         case 't': // TO DO Lists
-            
+            result = buildTODOListsOutput(inputArgs.rootDir, false);
+
             break;
         case 'p': // Only pending TO DO List items
-            
+            result = buildTODOListsOutput(inputArgs.rootDir, true);
+
             break;
-    
+
         default:
             break;
     }
-
-    
-    let toDoLists = buildTODOLists(inputArgs.rootDir);
 
     //TODO: Generate Output File with result
 }

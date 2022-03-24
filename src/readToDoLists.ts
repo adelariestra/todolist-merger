@@ -7,18 +7,15 @@ let rgxTODOItem = new RegExp(`(\\t| )*- \\[( |X|-|O)\\]( )*.*(\\r| )*(\\n)`, "g"
 let rgxTODOItemOnlyPending = new RegExp(`(\\t| )*- \\[( )\\]( )*.*(\\r| )*(\\n)`, "g");
 
 // MAIN FUNCTIONS
-export function readToDoLists(rootDir: any): String[] {
-    let items: String[] = [];
-    itereateFiles(
-        rootDir,
-        (path: FS.PathOrFileDescriptor) => { items.push(getFileTODOList(path)) },
-        () => { },
-        () => { }
-    )
-    return items.filter(item => item != "");
+export function getFileTODOItems(path: FS.PathOrFileDescriptor, onlyPending:Boolean=false): String {
+    let todolist = getFileTODOList(path);
+    
+    //Obtener contenido sin titulo y lineas    
+    return "";
 }
 
-export function getFileTODOItems(path: FS.PathOrFileDescriptor): String[] {
+//TODO: Remove?
+export function getFileTODOItemsList(path: FS.PathOrFileDescriptor): String[] {
     // console.debug(`Started reading TO DO Items of ${path}`);
 
     let todolist = getFileTODOList(path);
@@ -31,10 +28,10 @@ export function getFileTODOItems(path: FS.PathOrFileDescriptor): String[] {
 }
 
 // AUX
-function getFileContent(path: FS.PathOrFileDescriptor): String {
+export function getFileContent(path: FS.PathOrFileDescriptor): String {
     return FS.readFileSync(path, 'utf8');
 }
-function getFileTODOList(path: FS.PathOrFileDescriptor): String {
+export function getFileTODOList(path: FS.PathOrFileDescriptor): String {
     // console.debug(`Started reading TO DO List of ${path}`);
     return getFileContent(path).match(rgxTODOList)?.toString() || "";
 }
