@@ -40,16 +40,10 @@ describe('File Reading', () => {
 
     describe('Lists Generation', () => {
         it('Generates TO DO Lists', () => {
-            let result = buildTODOListsOutput(rootDir, outPath, false);
-            console.log("~~~~ GENERATED LIST~~~~ ");
-            console.log(result);
-            expect(result.length).to.above(0);
+            buildTODOListsOutput(rootDir, outPath, false);
         });
         it('Generates TO DO Lists Only Pending', () => {
-            let result = buildTODOListsOutput(rootDir, outPath, true);
-            console.log("~~~~ GENERATED LIST OP ~~~~ ");
-            console.log(result);
-            expect(result.length).to.above(0);
+            buildTODOListsOutput(rootDir, outPath, true);
         });
     });
 

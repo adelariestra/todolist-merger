@@ -36,7 +36,6 @@ export function buildTODOListsOutput(rootDir: FS.PathLike, outPath: FS.PathLike,
     );
     wStream.write("\n---");
     wStream.close();
-    return "FINISHED";
 }
 
 export function buildFilesArray(rootDir: FS.PathLike): String[] {
