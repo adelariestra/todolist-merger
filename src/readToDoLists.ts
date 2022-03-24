@@ -15,14 +15,10 @@ export function getFileTODOItems(path: FS.PathOrFileDescriptor, onlyPending:Bool
 }
 
 //TODO: Remove?
-export function getFileTODOItemsList(path: FS.PathOrFileDescriptor): String[] {
-    // console.debug(`Started reading TO DO Items of ${path}`);
-
+export function getFileTODOItemsArray(path: FS.PathOrFileDescriptor): String[] {
     let todolist = getFileTODOList(path);
     let todoitems = todolist.match(rgxTODOItem) || [];
     todoitems = todoitems.map(item => item?.toString())
-
-    // console.debug(todoitems);
 
     return todoitems;
 }
@@ -32,6 +28,5 @@ export function getFileContent(path: FS.PathOrFileDescriptor): String {
     return FS.readFileSync(path, 'utf8');
 }
 export function getFileTODOList(path: FS.PathOrFileDescriptor): String {
-    // console.debug(`Started reading TO DO List of ${path}`);
     return getFileContent(path).match(rgxTODOList)?.toString() || "";
 }
