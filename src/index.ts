@@ -1,5 +1,5 @@
 import {buildTODOLists, buildFilesList} from './buildLists';
-import yargs from 'yargs';
+import yargs, { choices } from 'yargs';
 
 let argv = yargs
     .scriptName("todolist-merger")
@@ -10,16 +10,16 @@ let argv = yargs
     )
     .option("m", {
         alias: "mergeType",
-        describe: "Which elements of the files will be merged.",
+        describe: "Which elements of the files will be merged. a=all, t=todos, p=todopendings",
         type: "string",
-        choices:["f","t","tp"],
+        choices:["a","t","p"],
         default:"f",
         nargs: 1
     })
     .option("i", {
         alias: "readType",
-        describe: "How the folders will be read.",
-        choices:["i","ni"],
+        describe: "How the folders will be read. i=iteration, ni=noiteration",
+        choices:["i","n"],
         default:"i",
         type: "string",
         nargs: 1
@@ -44,10 +44,27 @@ let argv = yargs
 main(argv);
 
 function main(inputArgs: any) {
-    // console.log(inputArgs);
+    // inputArgs.mergeType ["a","t","p"]
+    // inputArgs.readType ["i","n"]
+    // inputArgs.rootDir
+    // inputArgs.outPath
+    switch (inputArgs.mergeType) {
+        case 'a': //All files content
+            
+            break;
+        case 't': // TO DO Lists
+            
+            break;
+        case 'p': // Only pending TO DO List items
+            
+            break;
+    
+        default:
+            break;
+    }
 
+    
     let toDoLists = buildTODOLists(inputArgs.rootDir);
-    console.log(toDoLists);
-    // console.log(files);
-    // console.log(`File Count: ${files.length}`);
+
+    //TODO: Generate Output File with result
 }

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import {buildTODOLists, buildFilesList} from '../../src/buildLists';
-import { readToDoItems, readToDoLists } from '../../src/readToDoLists';
+import {buildTODOLists, buildFilesList, buildTODOItemsList} from '../../src/buildLists';
+import { readToDoLists } from '../../src/readToDoLists';
 import setup from '../fixture/testSuiteSetup';
 
 describe('File Reading', () => {
@@ -23,7 +23,7 @@ describe('File Reading', () => {
         });
         
         it('Can get to do list items', () => {
-            let result = readToDoItems(rootDir);
+            let result = buildTODOItemsList(rootDir);
             expect(result.length).to.equal(4);
         });
 

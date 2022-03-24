@@ -2,7 +2,7 @@ import * as FS from 'fs';
 import * as Path from 'path';
 
 import { itereateFiles } from './iterateFiles'
-import { } from './readToDoLists'
+import { getFileTODOItems } from './readToDoLists'
 
 export function buildTODOLists(rootDir: FS.PathLike) {
     let directoriesStack: String[] = ["General"];
@@ -43,4 +43,17 @@ export function buildFilesList(rootDir: FS.PathLike): String[] {
     );
 
     return allFiles;
+}
+
+export function buildTODOItemsList(rootDir: any): String[] {
+    let items: String[] = [];
+    itereateFiles(
+        rootDir,
+        (path: FS.PathOrFileDescriptor) => {
+            items = items.concat(getFileTODOItems(path));
+        },
+        () => { },
+        () => { }
+    )
+    return items.filter(item => item != "");
 }
