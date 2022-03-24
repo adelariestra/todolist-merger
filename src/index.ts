@@ -54,11 +54,11 @@ function main(inputArgs: any) {
 
             break;
         case 't': // TO DO Lists
-            result = buildTODOListsOutput(inputArgs.rootDir, false);
+            result = buildTODOListsOutput(inputArgs.rootDir, inputArgs.outPath, false);
 
             break;
         case 'p': // Only pending TO DO List items
-            result = buildTODOListsOutput(inputArgs.rootDir, true);
+            result = buildTODOListsOutput(inputArgs.rootDir, inputArgs.outPath, true);
 
             break;
 

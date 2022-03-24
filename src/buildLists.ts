@@ -4,11 +4,11 @@ import * as Path from 'path';
 import { itereateFiles } from './iterateFiles'
 import { getFileTODOItems, getFileTODOItemsArray, getFileTODOList } from './readToDoLists'
 
-export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending: Boolean = false) {
+export function buildTODOListsOutput(rootDir: FS.PathLike, outPath: FS.PathLike, onlyPending: Boolean = false) {
     let directoriesStack: String[] = ["General"];
     let result: String = `# TODOs - ${Path.basename(rootDir.toString())}\n---`;
     let shouldSkipFile: Function = (path: string) => {
-        return ![".txt",".md",""].includes(Path.extname(path))
+        return ![".txt", ".md", ""].includes(Path.extname(path))
     }
 
     itereateFiles(

@@ -4,6 +4,7 @@ import setup from '../fixture/testSuiteSetup';
 
 describe('File Reading', () => {
     let rootDir = './test/fixture/rootDir';
+    let outPath = './test/fixture/rootDir/output.txt';
 
     before(() => {
         setup();
@@ -39,13 +40,13 @@ describe('File Reading', () => {
 
     describe('Lists Generation', () => {
         it('Generates TO DO Lists', () => {
-            let result = buildTODOListsOutput(rootDir, false);
+            let result = buildTODOListsOutput(rootDir, outPath, false);
             console.log("~~~~ GENERATED LIST~~~~ ");
             console.log(result);
             expect(result.length).to.above(0);
         });
         it('Generates TO DO Lists Only Pending', () => {
-            let result = buildTODOListsOutput(rootDir, true);
+            let result = buildTODOListsOutput(rootDir, outPath, true);
             console.log("~~~~ GENERATED LIST OP ~~~~ ");
             console.log(result);
             expect(result.length).to.above(0);
