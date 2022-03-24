@@ -6,32 +6,37 @@ import { getFileTODOItems, getFileTODOItemsArray, getFileTODOList } from './read
 
 export function buildTODOListsOutput(rootDir: FS.PathLike, outPath: FS.PathLike, onlyPending: Boolean = false) {
     let directoriesStack: String[] = ["General"];
-    let result: String = `# TODOs - ${Path.basename(rootDir.toString())}\n---`;
     let shouldSkipFile: Function = (path: string) => {
         return ![".txt", ".md", ""].includes(Path.extname(path))
     }
+    
+    let wStream = FS.createWriteStream(outPath, { flags : 'w' });
+    wStream.write(`# TODOs - ${Path.basename(rootDir.toString())}\n---`)
 
     itereateFiles(
         rootDir,
         (filePath: FS.PathOrFileDescriptor) => {
             // Add Title
-            result = result.concat(`\n${"#".repeat(directoriesStack.length + 1)} ${Path.basename(filePath.toString())}\n`);
-
+            wStream.write(`\n${"#".repeat(directoriesStack.length + 1)} ${Path.basename(filePath.toString())}\n`);;
+            //console.debug(">-> File Title Written")
             // Add items
             let items: String = getFileTODOItems(filePath, onlyPending);
-            result = result.concat(`${items}\n`)
+            //console.debug(">-> Items Gotten")
+            wStream.write(`${items}\n`);
+            //console.debug(">-> Items Written")
         },
         (directoryPath: FS.PathLike) => {
             directoriesStack.push(directoryPath.toString());
-            result = result.concat(`\n${"#".repeat(directoriesStack.length)} ${Path.basename(directoryPath.toString())}`);
+            wStream.write(`\n${"#".repeat(directoriesStack.length)} ${Path.basename(directoryPath.toString())}`);;
         },
         () => {
             directoriesStack.pop();
         },
         shouldSkipFile
     );
-    result = result.concat("\n---")
-    return result;
+    wStream.write("\n---");
+    wStream.close();
+    return "FINISHED";
 }
 
 export function buildFilesArray(rootDir: FS.PathLike): String[] {
