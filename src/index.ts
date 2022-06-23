@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import { buildTODOListsOutput } from './buildLists';
+import main from './app'
 
 let argv = yargs
     .scriptName("todolist-merger")
@@ -13,7 +13,7 @@ let argv = yargs
         describe: "Which elements of the files will be merged. a=all, t=todos, p=todopendings",
         type: "string",
         choices: ["a", "t", "p"],
-        default: "f",
+        default: "a",
         nargs: 1
     })
     .option("i", {
@@ -42,29 +42,3 @@ let argv = yargs
     .argv
 
 main(argv);
-
-function main(inputArgs: any) {
-    let result;
-    // inputArgs.mergeType ["a","t","p"]
-    // inputArgs.readType ["i","n"]
-    // inputArgs.rootDir
-    // inputArgs.outPath
-    switch (inputArgs.mergeType) {
-        case 'a': //All files content
-
-            break;
-        case 't': // TO DO Lists
-            result = buildTODOListsOutput(inputArgs.rootDir, inputArgs.outPath, false);
-
-            break;
-        case 'p': // Only pending TO DO List items
-            result = buildTODOListsOutput(inputArgs.rootDir, inputArgs.outPath, true);
-
-            break;
-
-        default:
-            break;
-    }
-
-    //TODO: Generate Output File with result
-}

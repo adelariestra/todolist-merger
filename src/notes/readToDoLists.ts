@@ -1,6 +1,4 @@
 import * as FS from 'fs';
-import * as Path from 'path';
-import { itereateFiles } from './iterateFiles'
 
 // AUX Regex
 let rgxSectionRandomEnters: String = `(\\n|\\r| )+`;

@@ -1,16 +1,14 @@
+# TO DO LIST MERGER
 ---
+## Excecution
+---
+// pending
 
 
 ---
-# TODOLIST-MERGER
+## General Considerations
 ---
+Style Guide: https://google.github.io/styleguide/tsguide.html
 
-
----
-## TODO
----
-- [ ] Read Input Parameters
-- [ ] Print read files
-- [ ] Generate basic file merge
 
 ---

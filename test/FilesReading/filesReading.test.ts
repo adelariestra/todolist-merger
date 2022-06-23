@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { buildTODOListsOutput, buildFilesArray, buildTODOListsArray, buildTODOItemsArray } from '../../src/buildLists';
+import { buildFilesArray, buildTODOItemsArray, buildTODOListsArray, buildTODOListsOutput } from '../../src/todolists/buildLists';
 import setup from '../fixture/testSuiteSetup';
 
 describe('File Reading', () => {

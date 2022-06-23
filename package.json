@@ -4,29 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "dev": "tsc -p . & node dist/index.js",
-    "dev2": "node src/index.ts",
+    "start": "node dist/src/index.js",
+    "dev": "tsc -p . & node dist/src/index.js",
     "build": "tsc -p .",
-    "test":"mocha -r ts-node/register 'test/**/*.ts'",
-    "test-cmd": "tsc -p . & node dist/index.js -r \"./test/fixture/rootDir\" -o \"./test/fixture/outDir/output.txt\" ",
-    "test-default": "tsc -p . & node dist/index.js",
-    "test-help": "tsc -p . & node dist/index.js --help"
+    "test": "mocha -r ts-node/register 'test/**/*.ts'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.1-security",
     "path": "^0.12.7",
-    "ts-node": "^10.7.0",
     "yargs": "^17.4.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.0",
-    "@types/mocha": "^9.1.0",
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
     "@types/node": "^17.0.22",
     "@types/yargs": "^17.0.10",
     "chai": "^4.3.6",
-    "mocha": "^9.2.2"
+    "mocha": "^9.2.2",
+    "ts-node": "^10.8.1"
   }
 }

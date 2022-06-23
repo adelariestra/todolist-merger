@@ -1,8 +1,8 @@
 import * as FS from 'fs';
 import * as Path from 'path';
 
-import { itereateFiles } from './iterateFiles'
-import { getFileTODOItems, getFileTODOItemsArray, getFileTODOList } from './readToDoLists'
+import { itereateFiles } from '../filesystem/iterateFiles';
+import { getFileTODOItems, getFileTODOItemsArray, getFileTODOList } from '../notes/readToDoLists';
 
 export function buildTODOListsOutput(rootDir: FS.PathLike, outPath: FS.PathLike, onlyPending: Boolean = false) {
     let directoriesStack: String[] = ["General"];
