@@ -7,17 +7,14 @@ export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, direct
         .forEach(file => {
             // console.debug(`> File: ${file}`);
             
-            // FILES AND DIRECTORY SKIPPING
             if (shouldSkipFile(file))
                 return;
             const path = Path.join(rootDir.toString(), file);
 
             if (FS.statSync(path).isDirectory()) {
-                // DIRECTORY ACTIONS
                 directoryAction(path);
                 return itereateFiles(path, fileAction, directoryAction, levelUpAction, shouldSkipFile);
             } else {
-                // FILE ACTIONS
                 return fileAction(path);
             }
         });

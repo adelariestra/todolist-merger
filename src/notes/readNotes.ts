@@ -19,15 +19,6 @@ export function getSingleFileTODOLists(path: FS.PathOrFileDescriptor, onlyPendin
     return todolist;
 }
 
-// export function getFilesItemsArray(path: FS.PathOrFileDescriptor): string[] {
-//     let fileContent = getFileContent(path);
-//     let todolist = getTODOListFromContent(fileContent);
-//     let items = todolist.match(rgxTODOItem) || [];
-//     items = items.map(item => item?.toString())
-
-//     return items;
-// }
-
 function getTODOListFromContent(fileContent:string): string {
     let rgxMatch = fileContent.match(rgxTODOList);
     return rgxMatch ? rgxMatch[0] : "";

@@ -65,29 +65,3 @@ export function getTODOLists(rootDir: FS.PathLike, onlyPending:boolean): Array<S
 
     return filesContent;
 }
-
-// export function buildTODOItemsArray(rootDir: any): String[] {
-//     let items: String[] = [];
-//     itereateFiles(
-//         rootDir,
-//         (path: FS.PathOrFileDescriptor) => {
-//             items = items.concat(getFileTODOItemsArray(path));
-//         },
-//         () => { },
-//         () => { }
-//     )
-//     return items.filter(item => item != "");
-// }
-
-// export function buildTODOListsArray(rootDir: any): String[] {
-//     let items: String[] = [];
-//     itereateFiles(
-//         rootDir,
-//         (path: FS.PathOrFileDescriptor) => {
-//             items = items.concat(getFileTODOList(path));
-//         },
-//         () => { },
-//         () => { }
-//     )
-//     return items.filter(item => item != "");
-// }
