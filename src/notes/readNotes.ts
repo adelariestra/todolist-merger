@@ -1,4 +1,5 @@
 import * as FS from 'fs';
+import { rgxEntersAndSpacesEnd, rgxSeparator, rgxTODOItem, rgxTODOItemsNotPending, rgxTODOList, rgxTODOListTitle } from './regexHelpers';
 
 // MAIN FUNCTIONS
 export function getFileTODOItems(path: FS.PathOrFileDescriptor, onlyPending: Boolean = false): String {

@@ -2,7 +2,7 @@ import * as FS from 'fs';
 import * as Path from 'path';
 
 import { itereateFiles } from '../filesystem/iterateFiles';
-import { getFileTODOItems, getFileTODOItemsArray, getFileTODOList } from '../notes/readNotes';
+import { getFileContent, getFileTODOItemsArray, getFileTODOList } from '../notes/readNotes';
 
 // HELPERS
 // Files Skipping
@@ -13,17 +13,25 @@ let skipGitFiles:Function = (path: string) => {
     return [".git"].includes(Path.extname(path));
 }
 
-
 // MAIN FUNCTIONS
-export function getFilesContent(path: FS.PathOrFileDescriptor): String[]{
-       
-    return [""];
+export function getFilesContent(rootDir: FS.PathLike): String[]{
+    let filesContent: String[] = [];
+
+    itereateFiles(
+        rootDir,
+        (filePath: FS.PathOrFileDescriptor) => {
+            filesContent.push(getFileContent(filePath));
+        },
+        () => {},
+        () => {},
+        skipNonTextFiles
+    );
+
+    return filesContent;
 }
 
 export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending: Boolean = false) {
     let directoriesStack: String[] = ["General"];
-    
-    
     let getName: Function = (path:String)=>{
         return Path.basename(path.toString());
     }

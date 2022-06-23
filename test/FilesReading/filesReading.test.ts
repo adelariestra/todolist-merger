@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { buildFilesArray, buildTODOItemsArray, buildTODOListsArray, buildTODOListsOutput } from '../../src/todolists/buildLists';
+import { buildFilesArray, getFilesContent } from '../../src/todolists/buildLists';
 import setup from '../fixture/testSuiteSetup';
 
 describe('File Reading', () => {
@@ -17,34 +17,12 @@ describe('File Reading', () => {
         });
     });
 
-    describe('TO DO LIST Reading', () => {
-        it('Can get to do lists', () => {
-            let result = buildTODOListsArray(rootDir);
-            expect(result.length).to.equal(2);
-        });
-
-        it('Can get to do list items', () => {
-            let result = buildTODOItemsArray(rootDir);
+    describe('Files Reading', () => {
+        it ('Can read the files under a directory', () => {
+            let result = getFilesContent(rootDir);
             expect(result.length).to.equal(7);
         });
 
-        it.skip('Can get to do list only-completed items', () => {
-
-        });
-
-        it.skip('Doesnt fail if no to do items available', () => {
-
-        });
-
-    });
-
-    describe('Lists Generation', () => {
-        it('Generates TO DO Lists', () => {
-            buildTODOListsOutput(rootDir, outPath, false);
-        });
-        it('Generates TO DO Lists Only Pending', () => {
-            buildTODOListsOutput(rootDir, outPath, true);
-        });
     });
 
 
