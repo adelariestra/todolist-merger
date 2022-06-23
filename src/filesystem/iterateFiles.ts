@@ -16,7 +16,7 @@ export function itereateFiles(rootDir: FS.PathLike, fileAction: Function, direct
                 return itereateFiles(path, fileAction, directoryAction, levelUpAction, shouldSkipFile);
             } else {
                 return fileAction(path);
-            }
+            };
         });
     levelUpAction(rootDir);
 }

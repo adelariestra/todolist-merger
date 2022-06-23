@@ -3,7 +3,7 @@ import { rgxEntersAndSpacesEnd, rgxSeparator, rgxTODOItem, rgxTODOItemsNotPendin
 
 export function getSingleFileContent(path: FS.PathOrFileDescriptor): string {
     return FS.readFileSync(path, 'utf8');
-}
+};
 
 export function getSingleFileTODOLists(path: FS.PathOrFileDescriptor, onlyPending: Boolean = false): string {
     let fileContent = getSingleFileContent(path);
@@ -17,7 +17,7 @@ export function getSingleFileTODOLists(path: FS.PathOrFileDescriptor, onlyPendin
     todolist = todolist.replace(rgxEntersAndSpacesEnd, "");
 
     return todolist;
-}
+};
 
 function getTODOListFromContent(fileContent:string): string {
     let rgxMatch = fileContent.match(rgxTODOList);

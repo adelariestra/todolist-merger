@@ -18,7 +18,7 @@ export function buildFileNames(rootDir: FS.PathLike): String[] {
     );
 
     return allFiles;
-}
+};
 
 // MAIN FUNCTIONS
 export function buildContents(rootDir: FS.PathLike): Array<SingleContent>{
@@ -35,7 +35,7 @@ export function buildContents(rootDir: FS.PathLike): Array<SingleContent>{
     );
 
     return filesContent;
-}
+};
 
 export function buildTODOLists(rootDir: FS.PathLike, onlyPending:boolean): Array<SingleContent>{
     let filesContent: Array<SingleContent> = [];
