@@ -4,6 +4,17 @@ import * as Path from 'path';
 import { itereateFiles } from '../filesystem/iterateFiles';
 import { getFileTODOItems, getFileTODOItemsArray, getFileTODOList } from '../notes/readNotes';
 
+// HELPERS
+// Files Skipping
+let skipNonTextFiles: Function = (path: string) => {
+    return ![".txt", ".md", ""].includes(Path.extname(path));
+}
+let skipGitFiles:Function = (path: string) => {
+    return [".git"].includes(Path.extname(path));
+}
+
+
+// MAIN FUNCTIONS
 export function getFilesContent(path: FS.PathOrFileDescriptor): String[]{
        
     return [""];
@@ -11,9 +22,7 @@ export function getFilesContent(path: FS.PathOrFileDescriptor): String[]{
 
 export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending: Boolean = false) {
     let directoriesStack: String[] = ["General"];
-    let shouldSkipFile: Function = (path: string) => {
-        return ![".txt", ".md", ""].includes(Path.extname(path))
-    }
+    
     
     let getName: Function = (path:String)=>{
         return Path.basename(path.toString());
@@ -30,21 +39,20 @@ export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending: Boolean 
         () => {
             directoriesStack.pop();
         },
-        shouldSkipFile
+        skipNonTextFiles
     );
 
 }
 
 export function buildFilesArray(rootDir: FS.PathLike): String[] {
     let allFiles: String[] = [];
-    let ignoredFiles: String[] = [".git"] //TODO: envirnonment/configuration?
 
     itereateFiles(
         rootDir,
         (path: String) => allFiles.push(path),
         () => { },
         () => { },
-        (path: String) => ignoredFiles.find(toIgnore => toIgnore == path)
+        skipGitFiles
     );
 
     return allFiles;
