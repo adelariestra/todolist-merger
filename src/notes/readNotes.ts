@@ -1,9 +1,13 @@
 import * as FS from 'fs';
 import { rgxEntersAndSpacesEnd, rgxSeparator, rgxTODOItem, rgxTODOItemsNotPending, rgxTODOList, rgxTODOListTitle } from './regexHelpers';
 
-// MAIN FUNCTIONS
-export function getFileTODOItems(path: FS.PathOrFileDescriptor, onlyPending: Boolean = false): String {
-    let todolist = getFileTODOList(path);
+export function getSingleFileContent(path: FS.PathOrFileDescriptor): string {
+    return FS.readFileSync(path, 'utf8');
+}
+
+export function getSingleFileTODOLists(path: FS.PathOrFileDescriptor, onlyPending: Boolean = false): string {
+    let fileContent = getSingleFileContent(path);
+    let todolist = getTODOListFromContent(fileContent);
     todolist = todolist.replace(rgxTODOListTitle, "");
     todolist = todolist.replace(rgxSeparator, "");
 
@@ -15,21 +19,16 @@ export function getFileTODOItems(path: FS.PathOrFileDescriptor, onlyPending: Boo
     return todolist;
 }
 
-//TODO: Remove?
-export function getFileTODOItemsArray(path: FS.PathOrFileDescriptor): string[] {
-    let todolist = getFileTODOList(path);
-    let todoitems = todolist.match(rgxTODOItem) || [];
-    todoitems = todoitems.map(item => item?.toString())
+// export function getFilesItemsArray(path: FS.PathOrFileDescriptor): string[] {
+//     let fileContent = getFileContent(path);
+//     let todolist = getTODOListFromContent(fileContent);
+//     let items = todolist.match(rgxTODOItem) || [];
+//     items = items.map(item => item?.toString())
 
-    return todoitems;
-}
+//     return items;
+// }
 
-// AUX
-export function getFileContent(path: FS.PathOrFileDescriptor): string {
-    return FS.readFileSync(path, 'utf8');
-}
-export function getFileTODOList(path: FS.PathOrFileDescriptor): string {
-    let fileContent = getFileContent(path); 
+function getTODOListFromContent(fileContent:string): string {
     let rgxMatch = fileContent.match(rgxTODOList);
     return rgxMatch ? rgxMatch[0] : "";
 }

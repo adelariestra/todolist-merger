@@ -3,7 +3,7 @@ import * as Path from 'path';
 import { SingleContent } from '../content';
 
 import { itereateFiles } from '../filesystem/iterateFiles';
-import { getFileContent, getFileTODOItemsArray, getFileTODOList } from '../notes/readNotes';
+import { getSingleFileContent, getSingleFileTODOLists } from '../notes/readNotes';
 
 // HELPERS
 // Files Skipping
@@ -18,44 +18,8 @@ let getName: Function = (path:String)=>{
     return Path.basename(path.toString());
 }
 
-// MAIN FUNCTIONS
-export function getFilesContent(rootDir: FS.PathLike): Array<SingleContent>{
-    let filesContent: Array<SingleContent> = [];
-
-    itereateFiles(
-        rootDir,
-        (filePath: FS.PathOrFileDescriptor) => {
-            filesContent.push({name: getName(filePath), content: getFileContent(filePath)});
-        },
-        () => {},
-        () => {},
-        skipNonTextFiles
-    );
-
-    return filesContent;
-}
-
-
-// export function buildTODOListsOutput(rootDir: FS.PathLike, onlyPending: Boolean = false) {
-//     let directoriesStack: String[] = ["General"];
-
-//     itereateFiles(
-//         rootDir,
-//         (filePath: FS.PathOrFileDescriptor) => {
- 
-//         },
-//         (directoryPath: FS.PathLike) => {
-            
-//         },
-//         () => {
-//             directoriesStack.pop();
-//         },
-//         skipNonTextFiles
-//     );
-
-// }
-
-export function buildFilesArray(rootDir: FS.PathLike): String[] {
+// ARRAYS
+export function getFileNames(rootDir: FS.PathLike): String[] {
     let allFiles: String[] = [];
 
     itereateFiles(
@@ -67,6 +31,39 @@ export function buildFilesArray(rootDir: FS.PathLike): String[] {
     );
 
     return allFiles;
+}
+
+// MAIN FUNCTIONS
+export function getContents(rootDir: FS.PathLike): Array<SingleContent>{
+    let filesContent: Array<SingleContent> = [];
+
+    itereateFiles(
+        rootDir,
+        (filePath: FS.PathOrFileDescriptor) => {
+            filesContent.push({name: getName(filePath), content: getSingleFileContent(filePath)});
+        },
+        () => {},
+        () => {},
+        skipNonTextFiles
+    );
+
+    return filesContent;
+}
+
+export function getTODOLists(rootDir: FS.PathLike, onlyPending:boolean): Array<SingleContent>{
+    let filesContent: Array<SingleContent> = [];
+
+    itereateFiles(
+        rootDir,
+        (filePath: FS.PathOrFileDescriptor) => {
+            filesContent.push({name: filePath.toString(), content: getSingleFileTODOLists(filePath, onlyPending)});
+        },
+        () => {},
+        () => {},
+        skipNonTextFiles
+    );
+
+    return filesContent;
 }
 
 // export function buildTODOItemsArray(rootDir: any): String[] {

@@ -1,11 +1,11 @@
 import yargs from 'yargs';
 import config from './config';
 import { SingleContent } from './content';
-import { getFilesContent } from './todolists/buildLists';
+import { getContents, getTODOLists } from './todolists/buildLists';
 import writeOutput from './writing/writeFile';
 
 
-const inputArgs:any = yargs
+const inputArgs: any = yargs
     .scriptName("todolist-merger")
     .usage('Usage: $0 -m [f, t, tp] -i [i, ni] -r rootDir -o outputDir')
     .example(
@@ -17,7 +17,7 @@ const inputArgs:any = yargs
         describe: "Which elements of the files will be merged. a=all, t=todos, p=todopendings",
         type: "string",
         choices: ["a", "t", "p"],
-        default: "a",
+        default: config.DEFAULT_MERGE,
         nargs: 1
     })
     .option("i", {
@@ -46,27 +46,32 @@ const inputArgs:any = yargs
     .argv
 
 export default function main() {
-    console.log("Started Excecution");
+    console.log(`Started Excecution with the following configuration:
+        Root Dir: ${inputArgs.rootDir}
+        Output Path: ${inputArgs.outPath}
+        Merge Type: ${inputArgs.mergeType}
+    `);
+
+    console.log(typeof inputArgs);
+
+    let result: Array<SingleContent> = [];
 
     switch (inputArgs.mergeType) {
         case 'a': //All files content
-            let result: Array<SingleContent> = [];
-            result = getFilesContent(inputArgs.rootDir);
-            writeOutput(inputArgs.rootDir, inputArgs.outPath, result);
+            result = getContents(inputArgs.rootDir);
 
             break;
         case 't': // TO DO Lists
-            //TODO: Pending
-            // result = buildTODOListsOutput(inputArgs.rootDir, false);
+            result = getTODOLists(inputArgs.rootDir, false);
 
             break;
         case 'p': // Only pending TO DO List items
-            //TODO: Pending
-            // result = buildTODOListsOutput(inputArgs.rootDir, true);
+            result = getTODOLists(inputArgs.rootDir, true);
 
             break;
 
         default:
             break;
     }
+    writeOutput(inputArgs.rootDir, inputArgs.outPath, result);
 }
