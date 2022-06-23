@@ -13,21 +13,20 @@ export function buildTODOListsOutput(rootDir: FS.PathLike, outPath: FS.PathLike,
     let wStream = FS.createWriteStream(outPath, { flags : 'w' });
     wStream.write(`# TODOs - ${Path.basename(rootDir.toString())}\n---`)
 
+    let getName: Function = (path:String)=>{
+        return Path.basename(path.toString());
+    }
+
     itereateFiles(
         rootDir,
         (filePath: FS.PathOrFileDescriptor) => {
-            // Add Title
-            wStream.write(`\n${"#".repeat(directoriesStack.length + 1)} ${Path.basename(filePath.toString())}\n`);;
-            //console.debug(">-> File Title Written")
-            // Add items
+            wStream.write(`\n${"#".repeat(directoriesStack.length + 1)} ${getName(filePath)}\n`);;
             let items: String = getFileTODOItems(filePath, onlyPending);
-            //console.debug(">-> Items Gotten")
             wStream.write(`${items}\n`);
-            //console.debug(">-> Items Written")
         },
         (directoryPath: FS.PathLike) => {
             directoriesStack.push(directoryPath.toString());
-            wStream.write(`\n${"#".repeat(directoriesStack.length)} ${Path.basename(directoryPath.toString())}`);;
+            wStream.write(`\n${"#".repeat(directoriesStack.length)} ${getName(directoryPath)}`);;
         },
         () => {
             directoriesStack.pop();
