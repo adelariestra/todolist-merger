@@ -1,7 +1,7 @@
 import yargs from 'yargs';
 import config from './config';
 import { SingleContent } from './content';
-import { getContents, getTODOLists } from './todolists/buildLists';
+import { buildContents, buildTODOLists } from './todolists/buildLists';
 import writeOutput from './writing/writeFile';
 
 
@@ -56,15 +56,15 @@ export default function main() {
 
     switch (inputArgs.mergeType) {
         case 'a': //All files content
-            result = getContents(inputArgs.rootDir);
+            result = buildContents(inputArgs.rootDir);
 
             break;
         case 't': // TO DO Lists
-            result = getTODOLists(inputArgs.rootDir, false);
+            result = buildTODOLists(inputArgs.rootDir, false);
 
             break;
         case 'p': // Only pending TO DO List items
-            result = getTODOLists(inputArgs.rootDir, true);
+            result = buildTODOLists(inputArgs.rootDir, true);
 
             break;
 

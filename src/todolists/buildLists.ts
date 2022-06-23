@@ -1,25 +1,12 @@
 import * as FS from 'fs';
-import * as Path from 'path';
 import { SingleContent } from '../content';
 
 import { itereateFiles } from '../filesystem/iterateFiles';
 import { getSingleFileContent, getSingleFileTODOLists } from '../notes/readNotes';
-
-// HELPERS
-// Files Skipping
-let skipNonTextFiles: Function = (path: string) => {
-    return ![".txt", ".md", ""].includes(Path.extname(path));
-}
-let skipGitFiles:Function = (path: string) => {
-    return [".git"].includes(Path.extname(path));
-}
-// File management
-let getName: Function = (path:String)=>{
-    return Path.basename(path.toString());
-}
+import { skipGitFiles, getName, skipNonTextFiles } from './fileHelpers';
 
 // ARRAYS
-export function getFileNames(rootDir: FS.PathLike): String[] {
+export function buildFileNames(rootDir: FS.PathLike): String[] {
     let allFiles: String[] = [];
 
     itereateFiles(
@@ -34,7 +21,7 @@ export function getFileNames(rootDir: FS.PathLike): String[] {
 }
 
 // MAIN FUNCTIONS
-export function getContents(rootDir: FS.PathLike): Array<SingleContent>{
+export function buildContents(rootDir: FS.PathLike): Array<SingleContent>{
     let filesContent: Array<SingleContent> = [];
 
     itereateFiles(
@@ -50,7 +37,7 @@ export function getContents(rootDir: FS.PathLike): Array<SingleContent>{
     return filesContent;
 }
 
-export function getTODOLists(rootDir: FS.PathLike, onlyPending:boolean): Array<SingleContent>{
+export function buildTODOLists(rootDir: FS.PathLike, onlyPending:boolean): Array<SingleContent>{
     let filesContent: Array<SingleContent> = [];
 
     itereateFiles(

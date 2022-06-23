@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getFileNames, getContents } from '../../src/todolists/buildLists';
+import { buildFileNames, buildContents } from '../../src/todolists/buildLists';
 import setup from './testSuiteSetup';
 
 describe('File Reading', () => {
@@ -12,14 +12,14 @@ describe('File Reading', () => {
 
     describe('General', () => {
         it('Can access the environments files', () => {
-            let result = getFileNames(rootDir);
+            let result = buildFileNames(rootDir);
             expect(result.length).to.equal(7);
         });
     });
 
     describe('Files Reading', () => {
         it ('Can read the files under a directory', () => {
-            let result = getContents(rootDir);
+            let result = buildContents(rootDir);
             expect(result.length).to.equal(7);
         });
 
