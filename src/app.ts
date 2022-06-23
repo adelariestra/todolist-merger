@@ -52,8 +52,6 @@ export default function main() {
         Merge Type: ${inputArgs.mergeType}
     `);
 
-    console.log(typeof inputArgs);
-
     let result: Array<SingleContent> = [];
 
     switch (inputArgs.mergeType) {
