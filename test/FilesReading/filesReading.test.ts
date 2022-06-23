@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { buildFilesArray, getFilesContent } from '../../src/todolists/buildLists';
-import setup from '../fixture/testSuiteSetup';
+import setup from './testSuiteSetup';
 
 describe('File Reading', () => {
     let rootDir = './test/fixture/rootDir';
