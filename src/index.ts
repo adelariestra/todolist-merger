@@ -1,5 +1,8 @@
 import yargs from 'yargs';
-import main from './app'
+import main from './app';
+import { Configuration } from './config';
+
+let config: Configuration = require('./config.json');
 
 let argv = yargs
     .scriptName("todolist-merger")
@@ -27,14 +30,14 @@ let argv = yargs
     .option("r", {
         alias: "rootDir",
         describe: "Folder Path from where to start reading.",
-        default: ".",
+        default: config.DEFAULT_ROOT,
         type: "string",
         nargs: 1
     })
     .option("o", {
         alias: "outPath",
         describe: "Name of the file that will be generated.",
-        default: "./output.txt",
+        default: config.DEFAULT_OUTPUT,
         type: "string",
         nargs: 1
     })

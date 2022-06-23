@@ -16,7 +16,7 @@ export function getFileTODOItems(path: FS.PathOrFileDescriptor, onlyPending: Boo
 }
 
 //TODO: Remove?
-export function getFileTODOItemsArray(path: FS.PathOrFileDescriptor): String[] {
+export function getFileTODOItemsArray(path: FS.PathOrFileDescriptor): string[] {
     let todolist = getFileTODOList(path);
     let todoitems = todolist.match(rgxTODOItem) || [];
     todoitems = todoitems.map(item => item?.toString())
@@ -25,10 +25,10 @@ export function getFileTODOItemsArray(path: FS.PathOrFileDescriptor): String[] {
 }
 
 // AUX
-export function getFileContent(path: FS.PathOrFileDescriptor): String {
+export function getFileContent(path: FS.PathOrFileDescriptor): string {
     return FS.readFileSync(path, 'utf8');
 }
-export function getFileTODOList(path: FS.PathOrFileDescriptor): String {
+export function getFileTODOList(path: FS.PathOrFileDescriptor): string {
     let fileContent = getFileContent(path); 
     let rgxMatch = fileContent.match(rgxTODOList);
     return rgxMatch ? rgxMatch[0] : "";

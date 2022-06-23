@@ -110,3 +110,4 @@ test/services/fixture/calendarsList.json
 
 # Resources
 test/fixture/rootDir
+src/config/config.json
