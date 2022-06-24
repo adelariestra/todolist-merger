@@ -42,6 +42,28 @@ export function buildStructure(rootDir: FS.PathLike): Array<SingleContent> {
     return filesContent;
 };
 
+export function buildStructureGeneration(rootDir: FS.PathLike): Array<SingleContent> {
+    let filesContent: Array<SingleContent> = [];
+    let directoriesCount: number = 0;
+    let wholeStructure: string = `\nmkdir ${getName(rootDir)}`;
+
+    itereateFiles(
+        rootDir,
+        (path: string) => wholeStructure += `\ntype nul >${getName(path)}`,
+        (path: string) => {
+            wholeStructure += `\nmkdir ${getName(path)}`
+            wholeStructure += `\ncd ${getName(path)}`
+        },
+        () => {
+            wholeStructure += `\ncd..`
+        },
+        skipGitFiles
+    );
+
+    filesContent.push({ name: "File Structure", content: wholeStructure })
+    return filesContent;
+};
+
 // MAIN FUNCTIONS
 export function buildContents(rootDir: FS.PathLike): Array<SingleContent> {
     let filesContent: Array<SingleContent> = [];
