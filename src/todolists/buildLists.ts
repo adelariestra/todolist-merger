@@ -1,9 +1,9 @@
 import * as FS from 'fs';
 import { SingleContent } from '../content';
 
-import { itereateFiles } from '../filesystem/iterateFiles';
+import { itereateFiles } from '../filesystem/iteration';
 import { getSingleFileContent, getSingleFileTODOLists } from '../notes/readNotes';
-import { skipGitFiles, getName, skipNonTextFiles } from '../filesystem/fileHelpers';
+import { skipGitFiles, getName, skipNonTextFiles } from '../filesystem/helpers';
 
 // ARRAYS
 export function buildFileNames(rootDir: FS.PathLike): String[] {

@@ -1,7 +1,7 @@
 import yargs from 'yargs';
 import config from './config';
 import { SingleContent } from './content';
-import { getFullPath } from './filesystem/fileHelpers';
+import { getFullPath } from './filesystem/helpers';
 import { buildContents, buildTODOLists } from './todolists/buildLists';
 import writeOutput from './writing/writeFile';
 
