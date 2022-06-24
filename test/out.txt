@@ -1,0 +1,10 @@
+# ./test 
+---
+## File Structure
+---
+test
+	FilesReading
+		filesReading.test.ts
+		testSuiteSetup.ts
+	out.txt
+---

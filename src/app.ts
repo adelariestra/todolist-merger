@@ -2,21 +2,21 @@ import yargs from 'yargs';
 import config from './config';
 import { SingleContent } from './content';
 import { getFullPath } from './filesystem/helpers';
-import { buildContents, buildTODOLists } from './todolists/buildLists';
+import { buildContents, buildStructure, buildTODOLists } from './todolists/buildLists';
 import writeOutput from './writing/writeFile';
 
 const inputArgs: any = yargs
     .scriptName("todolist-merger")
-    .usage('Usage: $0 -m [a, t, p] -i [i, n] -r rootDir -o outputDir')
+    .usage('Usage: $0 -m [a, t, p, s] -i [i, n] -r rootDir -o outputDir')
     .example(
         "$0 -r \"./src\" -o \"./output\"",
         "Sets the root directory to ./src and the output directory to ./output."
     )
     .option("m", {
         alias: "mergeType",
-        describe: "Which elements of the files will be merged. a=all, t=todos, p=todopendings",
+        describe: "Which elements of the files will be merged. a=all, t=todos, p=todopendings, s=structure",
         type: "string",
-        choices: ["a", "t", "p"],
+        choices: ["a", "t", "p", "s"],
         default: config.DEFAULT_MERGE,
         nargs: 1
     })
@@ -66,6 +66,10 @@ export default function main() {
         case 'p': // Only pending TO DO List items
             result = buildTODOLists(inputArgs.rootDir, true);
 
+            break;
+
+        case 's': // Only pending TO DO List items
+            result = buildStructure(inputArgs.rootDir);
             break;
 
         default:

@@ -20,33 +20,55 @@ export function buildFileNames(rootDir: FS.PathLike): String[] {
     return allFiles;
 };
 
+export function buildStructure(rootDir: FS.PathLike): Array<SingleContent> {
+    let filesContent: Array<SingleContent> = [];
+    let directoriesCount: number = 0;
+    let wholeStructure: string = getName(rootDir);
+
+    itereateFiles(
+        rootDir,
+        (path: string) => wholeStructure += `\n${"\t".repeat(directoriesCount + 1)+getName(path)}`,
+        (path: string) => {
+            directoriesCount++;
+            wholeStructure += `\n${"\t".repeat(directoriesCount)+getName(path)}`
+        },
+        () => {
+            directoriesCount--;
+        },
+        skipGitFiles
+    );
+
+    filesContent.push({ name: "File Structure", content: wholeStructure })
+    return filesContent;
+};
+
 // MAIN FUNCTIONS
-export function buildContents(rootDir: FS.PathLike): Array<SingleContent>{
+export function buildContents(rootDir: FS.PathLike): Array<SingleContent> {
     let filesContent: Array<SingleContent> = [];
 
     itereateFiles(
         rootDir,
         (filePath: FS.PathOrFileDescriptor) => {
-            filesContent.push({name: getName(filePath), content: getSingleFileContent(filePath)});
+            filesContent.push({ name: getName(filePath), content: getSingleFileContent(filePath) });
         },
-        () => {},
-        () => {},
+        () => { },
+        () => { },
         skipNonTextFiles
     );
 
     return filesContent;
 };
 
-export function buildTODOLists(rootDir: FS.PathLike, onlyPending:boolean): Array<SingleContent>{
+export function buildTODOLists(rootDir: FS.PathLike, onlyPending: boolean): Array<SingleContent> {
     let filesContent: Array<SingleContent> = [];
 
     itereateFiles(
         rootDir,
         (filePath: FS.PathOrFileDescriptor) => {
-            filesContent.push({name: filePath.toString(), content: getSingleFileTODOLists(filePath, onlyPending)});
+            filesContent.push({ name: filePath.toString(), content: getSingleFileTODOLists(filePath, onlyPending) });
         },
-        () => {},
-        () => {},
+        () => { },
+        () => { },
         skipNonTextFiles
     );
 
