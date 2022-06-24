@@ -1,13 +1,13 @@
 import yargs from 'yargs';
 import config from './config';
 import { SingleContent } from './content';
+import { getFullPath } from './filesystem/fileHelpers';
 import { buildContents, buildTODOLists } from './todolists/buildLists';
 import writeOutput from './writing/writeFile';
 
-
 const inputArgs: any = yargs
     .scriptName("todolist-merger")
-    .usage('Usage: $0 -m [f, t, tp] -i [i, ni] -r rootDir -o outputDir')
+    .usage('Usage: $0 -m [a, t, p] -i [i, n] -r rootDir -o outputDir')
     .example(
         "$0 -r \"./src\" -o \"./output\"",
         "Sets the root directory to ./src and the output directory to ./output."
@@ -22,7 +22,7 @@ const inputArgs: any = yargs
     })
     .option("i", {
         alias: "readType",
-        describe: "How the folders will be read. i=iteration, ni=noiteration",
+        describe: "How the folders will be read. i=iteration, n=noiteration",
         choices: ["i", "n"],
         default: "i",
         type: "string",
@@ -47,8 +47,8 @@ const inputArgs: any = yargs
 
 export default function main() {
     console.log(`Started Excecution with the following configuration:
-        Root Dir: ${inputArgs.rootDir}
-        Output Path: ${inputArgs.outPath}
+        Root Dir: ${inputArgs.rootDir} (resolves to ${getFullPath(inputArgs.rootDir)})
+        Output Path: ${inputArgs.outPath} (resolves to ${getFullPath(inputArgs.outPath)})
         Merge Type: ${inputArgs.mergeType}
     `);
 

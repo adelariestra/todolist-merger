@@ -3,7 +3,7 @@ import { SingleContent } from '../content';
 
 import { itereateFiles } from '../filesystem/iterateFiles';
 import { getSingleFileContent, getSingleFileTODOLists } from '../notes/readNotes';
-import { skipGitFiles, getName, skipNonTextFiles } from './fileHelpers';
+import { skipGitFiles, getName, skipNonTextFiles } from '../filesystem/fileHelpers';
 
 // ARRAYS
 export function buildFileNames(rootDir: FS.PathLike): String[] {
