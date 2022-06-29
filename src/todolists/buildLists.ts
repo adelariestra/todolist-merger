@@ -42,6 +42,8 @@ export function buildStructure(rootDir: FS.PathLike): Array<SingleContent> {
     return filesContent;
 };
 
+//TODO: fix issue where paths between brackets are used as wildcards
+// in windows.
 export function buildStructureGeneration(rootDir: FS.PathLike): Array<SingleContent> {
     let filesContent: Array<SingleContent> = [];
     let directoriesCount: number = 0;
@@ -49,10 +51,11 @@ export function buildStructureGeneration(rootDir: FS.PathLike): Array<SingleCont
 
     itereateFiles(
         rootDir,
-        (path: string) => wholeStructure += `\ntype nul >${getName(path)}`,
+        // (path: string) => wholeStructure += `\ntype nul >${getName(path)}`,
+        (path: string) => wholeStructure += `\ncd . > \"${getName(path)}\"`,
         (path: string) => {
-            wholeStructure += `\nmkdir ${getName(path)}`
-            wholeStructure += `\ncd ${getName(path)}`
+            wholeStructure += `\nmkdir \"${getName(path)}\"`
+            wholeStructure += `\ncd \"${getName(path)}\"`
         },
         () => {
             wholeStructure += `\ncd..`
